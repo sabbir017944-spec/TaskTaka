@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827"><title>TaskTaka — Demo</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#0b1220;--panel:#131f32;--panel2:#1a2940;--text:#f4f7fb;--muted:#9eacc0;--green:#37d39a;--blue:#6ea8fe;--line:#26364d}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#0b1220,#101d31 65%,#0b1220);color:var(--text);font:16px system-ui,-apple-system,"Noto Sans Bengali",sans-serif;min-height:100vh}
+.wrap{max-width:1050px;margin:auto;padding:22px 16px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#39d49a,#2788e8);display:grid;place-items:center;color:#061421;font-weight:900}.pill{border:1px solid #35506c;color:#b9c9dc;padding:7px 11px;border-radius:99px;font-size:12px}
+.hero{background:linear-gradient(120deg,#173d42,#183252 60%,#25345b);border:1px solid #31546b;border-radius:24px;padding:24px;margin-bottom:18px}.eyebrow{color:#80e8c0;font-size:13px;font-weight:700}.hero h1{font-size:clamp(25px,5vw,38px);margin:8px 0}.hero p{color:#c3d2e1;max-width:620px;line-height:1.6;margin:0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}.card{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:18px}.stat small,.muted{color:var(--muted)}.amount{font-size:28px;font-weight:800;margin-top:6px}.progress{height:9px;background:#293950;border-radius:20px;overflow:hidden;margin:13px 0 7px}.bar{height:100%;width:0;background:linear-gradient(90deg,#38d39b,#6ea8fe);border-radius:20px}.section{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 12px}.section h2{font-size:19px;margin:0}.tasks{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.task{display:flex;justify-content:space-between;align-items:center;gap:12px}.task h3{font-size:16px;margin:0 0 5px}.task p{font-size:13px;color:var(--muted);margin:0}.reward{color:#80e8c0;font-weight:800;white-space:nowrap}.btn{border:0;background:var(--green);color:#062018;font-weight:800;padding:11px 15px;border-radius:12px;cursor:pointer}.btn.secondary{background:#243750;color:#dce9f8;border:1px solid #3b526d}.btn:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}input{background:#0d1727;border:1px solid #344861;color:white;padding:12px;border-radius:11px;width:100%;margin:7px 0 12px;font:inherit}.notice{font-size:12px;color:#aab9ca;line-height:1.55;margin-top:15px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#e6fff5;color:#092319;padding:12px 18px;border-radius:12px;display:none;box-shadow:0 8px 30px #0008;max-width:90%;z-index:5}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.tasks{grid-template-columns:1fr}.top{align-items:flex-start}.hero{padding:20px}.wrap{padding:16px 13px 45px}}
+</style></head>
+<body><main class="wrap">
+<header class="top"><div class="brand"><div class="logo">T</div>TaskTaka</div><span class="pill">DEMO VERSION</span></header>
+<section class="hero"><div class="eyebrow">ছোট কাজ • পরিষ্কার হিসাব</div><h1>কাজ সম্পন্ন করুন, অগ্রগতি দেখুন</h1><p>TaskTaka-এর নমুনা ড্যাশবোর্ড। এখানে দেখানো টাস্ক, পয়েন্ট ও উত্তোলনের অনুরোধ সবই পরীক্ষামূলক—কোনো বাস্তব টাকা বা পেমেন্ট নেই।</p></section>
+<section class="grid">
+<div class="card stat"><small>ডেমো ব্যালেন্স</small><div class="amount" id="balance">৳০</div><small>শুধু এই ডিভাইসে সংরক্ষিত</small></div>
+<div class="card stat"><small>সম্পন্ন টাস্ক</small><div class="amount" id="done">০</div><small>নমুনা হিসাব</small></div>
+<div class="card stat"><small>উত্তোলন সীমা (ডেমো)</small><div class="amount">৳১,০০০</div><small>এটি বাস্তব পেমেন্টের প্রতিশ্রুতি নয়</small></div>
+</section>
+<section class="card"><div class="section" style="margin:0"><h2>লক্ষ্যের অগ্রগতি</h2><strong id="percent">০%</strong></div><div class="progress"><div class="bar" id="bar"></div></div><small class="muted" id="progressText">৳১,০০০ ডেমো সীমা পর্যন্ত</small></section>
+<div class="section"><h2>নমুনা টাস্ক</h2><span class="pill">টেস্ট মোড</span></div>
+<section class="tasks">
+<article class="card task"><div><h3>প্রোফাইল তথ্য পড়ুন</h3><p>নমুনা তথ্য যাচাই</p></div><div style="text-align:right"><div class="reward">+৳৫০</div><button class="btn" onclick="completeTask('profile',50,this)">সম্পন্ন</button></div></article>
+<article class="card task"><div><h3>নিরাপত্তা নির্দেশনা</h3><p>অ্যাকাউন্ট সুরক্ষা সম্পর্কে জানুন</p></div><div style="text-align:right"><div class="reward">+৳৭৫</div><button class="btn" onclick="completeTask('safety',75,this)">সম্পন্ন</button></div></article>
+<article class="card task"><div><h3>ফিডব্যাক ফর্ম দেখুন</h3><p>ডেমো অভিজ্ঞতা</p></div><div style="text-align:right"><div class="reward">+৳১০০</div><button class="btn" onclick="completeTask('feedback',100,this)">সম্পন্ন</button></div></article>
+<article class="card task"><div><h3>নমুনা কুইজ</h3><p>অ্যাপ ব্যবহারের নিয়ম</p></div><div style="text-align:right"><div class="reward">+৳১২৫</div><button class="btn" onclick="completeTask('quiz',125,this)">সম্পন্ন</button></div></article>
+</section>
+<div class="section"><h2>ডেমো উত্তোলন অনুরোধ</h2></div>
+<section class="card"><p class="muted" style="margin-top:0">বাস্তব OTP, পরিচয় যাচাই বা bKash সংযোগ নেই। এটি শুধু ফর্মের নমুনা।</p><label for="phone">মোবাইল নম্বর (নমুনা)</label><input id="phone" inputmode="tel" placeholder="01XXXXXXXXX"><label for="realname">নাম (নমুনা)</label><input id="realname" placeholder="আপনার নাম"><button class="btn" id="withdraw" onclick="requestDemo()" disabled>ডেমো অনুরোধ তৈরি করুন</button><p class="notice">বাস্তব সেবা চালুর আগে বৈধ স্পনসর আয়, লিখিত টাস্ক-শর্ত, নিরাপদ সার্ভার, জালিয়াতি প্রতিরোধ এবং পেমেন্ট প্রদানকারীর অনুমোদন প্রয়োজন। বিজ্ঞাপন দেখা বা ক্লিকের বিনিময়ে নগদ পুরস্কার দেওয়ার নিয়ম সব বিজ্ঞাপন নেটওয়ার্কে অনুমোদিত নয়।</p></section>
+<div class="actions"><button class="btn secondary" onclick="resetDemo()">ডেমো রিসেট</button><button class="btn secondary" onclick="showInfo()">অ্যাপ সম্পর্কে</button></div>
+</main><div class="toast" id="toast"></div>
+<script>
+const KEY='tasktaka_demo_v1';let state=JSON.parse(localStorage.getItem(KEY)||'{"balance":0,"done":[]}');
+function save(){localStorage.setItem(KEY,JSON.stringify(state));render()}
+function money(n){return '৳'+new Intl.NumberFormat('bn-BD').format(n)}
+function render(){document.getElementById('balance').textContent=money(state.balance);document.getElementById('done').textContent=new Intl.NumberFormat('bn-BD').format(state.done.length);let p=Math.min(100,state.balance/1000*100);document.getElementById('percent').textContent=new Intl.NumberFormat('bn-BD').format(Math.floor(p))+'%';document.getElementById('bar').style.width=p+'%';document.getElementById('progressText').textContent=money(Math.max(0,1000-state.balance))+' বাকি (ডেমো)';document.getElementById('withdraw').disabled=state.balance<1000}
+function toast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
+function completeTask(id,amount,btn){if(state.done.includes(id)){toast('এই টাস্কটি আগে সম্পন্ন হয়েছে');return}state.done.push(id);state.balance+=amount;save();btn.textContent='সম্পন্ন হয়েছে';btn.disabled=true;toast('ডেমো পয়েন্ট যোগ হয়েছে')}
+function requestDemo(){let n=document.getElementById('realname').value.trim(),p=document.getElementById('phone').value.trim();if(!n||!p){toast('নমুনা নাম ও নম্বর লিখুন');return}if(state.balance<1000){toast('ডেমো সীমা এখনো পূরণ হয়নি');return}toast('ডেমো অনুরোধ তৈরি হয়েছে—কোনো টাকা পাঠানো হয়নি');}
+function resetDemo(){if(confirm('সব ডেমো হিসাব মুছে ফেলবেন?')){state={balance:0,done:[]};save();document.querySelectorAll('.task .btn').forEach(b=>{b.disabled=false;b.textContent='সম্পন্ন'});toast('ডেমো রিসেট হয়েছে')}}
+function showInfo(){alert('TaskTaka Demo\nএটি ফ্রন্টএন্ড প্রোটোটাইপ। বাস্তব অ্যাকাউন্ট, OTP, সার্ভার বা পেমেন্ট এখনো যুক্ত নয়।')}
+render();state.done.forEach(id=>{let i={profile:0,safety:1,feedback:2,quiz:3}[id];let b=document.querySelectorAll('.task .btn')[i];if(b){b.textContent='সম্পন্ন হয়েছে';b.disabled=true}});
+</script></body></html>
