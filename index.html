@@ -2,18 +2,36 @@
 <html lang="bn">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101827"><title>TaskTaka — Demo</title>
+<meta name="theme-color" content="#101827"><title>TaskTaka</title>
 <link rel="manifest" href="manifest.json">
 <style>
-:root{--bg:#0b1220;--panel:#131f32;--panel2:#1a2940;--text:#f4f7fb;--muted:#9eacc0;--green:#37d39a;--blue:#6ea8fe;--line:#26364d}
+:root{--panel:#131f32;--text:#f4f7fb;--muted:#9eacc0;--green:#37d39a;--line:#26364d}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#0b1220,#101d31 65%,#0b1220);color:var(--text);font:16px system-ui,-apple-system,"Noto Sans Bengali",sans-serif;min-height:100vh}
 .wrap{max-width:1050px;margin:auto;padding:22px 16px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#39d49a,#2788e8);display:grid;place-items:center;color:#061421;font-weight:900}.pill{border:1px solid #35506c;color:#b9c9dc;padding:7px 11px;border-radius:99px;font-size:12px}
-.hero{background:linear-gradient(120deg,#173d42,#183252 60%,#25345b);border:1px solid #31546b;border-radius:24px;padding:24px;margin-bottom:18px}.eyebrow{color:#80e8c0;font-size:13px;font-weight:700}.hero h1{font-size:clamp(25px,5vw,38px);margin:8px 0}.hero p{color:#c3d2e1;max-width:620px;line-height:1.6;margin:0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}.card{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:18px}.stat small,.muted{color:var(--muted)}.amount{font-size:28px;font-weight:800;margin-top:6px}.progress{height:9px;background:#293950;border-radius:20px;overflow:hidden;margin:13px 0 7px}.bar{height:100%;width:0;background:linear-gradient(90deg,#38d39b,#6ea8fe);border-radius:20px}.section{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 12px}.section h2{font-size:19px;margin:0}.tasks{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.task{display:flex;justify-content:space-between;align-items:center;gap:12px}.task h3{font-size:16px;margin:0 0 5px}.task p{font-size:13px;color:var(--muted);margin:0}.reward{color:#80e8c0;font-weight:800;white-space:nowrap}.btn{border:0;background:var(--green);color:#062018;font-weight:800;padding:11px 15px;border-radius:12px;cursor:pointer}.btn.secondary{background:#243750;color:#dce9f8;border:1px solid #3b526d}.btn:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}input{background:#0d1727;border:1px solid #344861;color:white;padding:12px;border-radius:11px;width:100%;margin:7px 0 12px;font:inherit}.notice{font-size:12px;color:#aab9ca;line-height:1.55;margin-top:15px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#e6fff5;color:#092319;padding:12px 18px;border-radius:12px;display:none;box-shadow:0 8px 30px #0008;max-width:90%;z-index:5}
+.hero{background:linear-gradient(120deg,#173d42,#183252 60%,#25345b);border:1px solid #31546b;border-radius:24px;padding:24px;margin-bottom:18px}.eyebrow{color:#80e8c0;font-size:13px;font-weight:700}.hero h1{font-size:clamp(25px,5vw,38px);margin:8px 0}.hero p{color:#c3d2e1;max-width:620px;line-height:1.6;margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}.card{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:18px}.stat small,.muted{color:var(--muted)}.amount{font-size:28px;font-weight:800;margin-top:6px}.progress{height:9px;background:#293950;border-radius:20px;overflow:hidden;margin:13px 0 7px}.bar{height:100%;width:0;background:linear-gradient(90deg,#38d39b,#6ea8fe);border-radius:20px}.section{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 12px}.section h2{font-size:19px;margin:0}.tasks{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.task{display:flex;justify-content:space-between;align-items:center;gap:12px}.task h3{font-size:16px;margin:0 0 5px}.task p{font-size:13px;color:var(--muted);margin:0}.reward{color:#80e8c0;font-weight:800;white-space:nowrap}
+.btn{border:0;background:var(--green);color:#062018;font-weight:800;padding:11px 15px;border-radius:12px;cursor:pointer}.btn.secondary{background:#243750;color:#dce9f8;border:1px solid #3b526d}.btn:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}input{background:#0d1727;border:1px solid #344861;color:white;padding:12px;border-radius:11px;width:100%;margin:7px 0 12px;font:inherit}label{font-size:13px;color:#c5d1df}.notice{font-size:12px;color:#aab9ca;line-height:1.55;margin-top:15px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#e6fff5;color:#092319;padding:12px 18px;border-radius:12px;display:none;box-shadow:0 8px 30px #0008;max-width:90%;z-index:5}.auth{max-width:510px;margin:5vh auto 30px}.auth h2{margin-top:0}.auth .btn{width:100%;margin:5px 0}.tabs{display:flex;gap:8px;margin-bottom:15px}.tabs button{flex:1}.hidden{display:none!important}.error{color:#ffb4b4;font-size:13px;min-height:20px}.userline{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 @media(max-width:700px){.grid{grid-template-columns:1fr}.tasks{grid-template-columns:1fr}.top{align-items:flex-start}.hero{padding:20px}.wrap{padding:16px 13px 45px}}
 </style></head>
 <body><main class="wrap">
-<header class="top"><div class="brand"><div class="logo">T</div>TaskTaka</div><span class="pill">DEMO VERSION</span></header>
-<section class="hero"><div class="eyebrow">ছোট কাজ • পরিষ্কার হিসাব</div><h1>কাজ সম্পন্ন করুন, অগ্রগতি দেখুন</h1><p>TaskTaka-এর নমুনা ড্যাশবোর্ড। এখানে দেখানো টাস্ক, পয়েন্ট ও উত্তোলনের অনুরোধ সবই পরীক্ষামূলক—কোনো বাস্তব টাকা বা পেমেন্ট নেই।</p></section>
+<header class="top"><div class="brand"><div class="logo">T</div>TaskTaka</div><span class="pill">Firebase Auth + Firestore</span></header>
+<section id="authView" class="card auth">
+<h2>TaskTaka অ্যাকাউন্ট</h2><p class="muted">ইমেইল দিয়ে অ্যাকাউন্ট খুলুন অথবা Google দিয়ে প্রবেশ করুন।</p>
+<div class="tabs"><button class="btn" id="loginTab">লগইন</button><button class="btn secondary" id="signupTab">রেজিস্ট্রেশন</button></div>
+<form id="authForm">
+<div id="nameWrap" class="hidden"><label for="fullName">আপনার নাম</label><input id="fullName" autocomplete="name" placeholder="পূর্ণ নাম"></div>
+<label for="email">ইমেইল</label><input id="email" type="email" autocomplete="email" required placeholder="name@example.com">
+<label for="password">পাসওয়ার্ড</label><input id="password" type="password" minlength="6" autocomplete="current-password" required placeholder="কমপক্ষে ৬ অক্ষর">
+<button class="btn" id="submitAuth" type="submit">লগইন</button>
+</form>
+<button class="btn secondary" id="googleBtn" type="button">Google দিয়ে চালিয়ে যান</button>
+<button class="btn secondary" id="resetBtn" type="button">পাসওয়ার্ড ভুলে গেছেন?</button>
+<div id="authError" class="error" role="status"></div>
+<p class="notice">আপনার অ্যাকাউন্টের তথ্য Firebase Authentication ও Firestore-এ সংরক্ষিত হবে। এই সংস্করণের ব্যালেন্স ও টাস্ক এখনো ডেমো; কোনো বাস্তব আয় বা পেমেন্ট নেই।</p>
+</section>
+<section id="appView" class="hidden">
+<div class="userline"><span id="welcome" class="muted"></span><button class="btn secondary" id="logoutBtn">লগআউট</button></div>
+<section class="hero"><div class="eyebrow">ছোট কাজ • পরিষ্কার হিসাব</div><h1>কাজ সম্পন্ন করুন, অগ্রগতি দেখুন</h1><p>TaskTaka-এর নমুনা ড্যাশবোর্ড। এখানে দেখানো টাস্ক, পয়েন্ট ও উত্তোলনের অনুরোধ পরীক্ষামূলক—কোনো বাস্তব টাকা বা পেমেন্ট নেই।</p></section>
 <section class="grid">
 <div class="card stat"><small>ডেমো ব্যালেন্স</small><div class="amount" id="balance">৳০</div><small>শুধু এই ডিভাইসে সংরক্ষিত</small></div>
 <div class="card stat"><small>সম্পন্ন টাস্ক</small><div class="amount" id="done">০</div><small>নমুনা হিসাব</small></div>
@@ -22,24 +40,50 @@
 <section class="card"><div class="section" style="margin:0"><h2>লক্ষ্যের অগ্রগতি</h2><strong id="percent">০%</strong></div><div class="progress"><div class="bar" id="bar"></div></div><small class="muted" id="progressText">৳১,০০০ ডেমো সীমা পর্যন্ত</small></section>
 <div class="section"><h2>নমুনা টাস্ক</h2><span class="pill">টেস্ট মোড</span></div>
 <section class="tasks">
-<article class="card task"><div><h3>প্রোফাইল তথ্য পড়ুন</h3><p>নমুনা তথ্য যাচাই</p></div><div style="text-align:right"><div class="reward">+৳৫০</div><button class="btn" onclick="completeTask('profile',50,this)">সম্পন্ন</button></div></article>
-<article class="card task"><div><h3>নিরাপত্তা নির্দেশনা</h3><p>অ্যাকাউন্ট সুরক্ষা সম্পর্কে জানুন</p></div><div style="text-align:right"><div class="reward">+৳৭৫</div><button class="btn" onclick="completeTask('safety',75,this)">সম্পন্ন</button></div></article>
-<article class="card task"><div><h3>ফিডব্যাক ফর্ম দেখুন</h3><p>ডেমো অভিজ্ঞতা</p></div><div style="text-align:right"><div class="reward">+৳১০০</div><button class="btn" onclick="completeTask('feedback',100,this)">সম্পন্ন</button></div></article>
-<article class="card task"><div><h3>নমুনা কুইজ</h3><p>অ্যাপ ব্যবহারের নিয়ম</p></div><div style="text-align:right"><div class="reward">+৳১২৫</div><button class="btn" onclick="completeTask('quiz',125,this)">সম্পন্ন</button></div></article>
+<article class="card task"><div><h3>প্রোফাইল তথ্য পড়ুন</h3><p>নমুনা তথ্য যাচাই</p></div><div style="text-align:right"><div class="reward">+৳৫০</div><button class="btn taskBtn" data-id="profile" data-amount="50">সম্পন্ন</button></div></article>
+<article class="card task"><div><h3>নিরাপত্তা নির্দেশনা</h3><p>অ্যাকাউন্ট সুরক্ষা সম্পর্কে জানুন</p></div><div style="text-align:right"><div class="reward">+৳৭৫</div><button class="btn taskBtn" data-id="safety" data-amount="75">সম্পন্ন</button></div></article>
+<article class="card task"><div><h3>ফিডব্যাক ফর্ম দেখুন</h3><p>ডেমো অভিজ্ঞতা</p></div><div style="text-align:right"><div class="reward">+৳১০০</div><button class="btn taskBtn" data-id="feedback" data-amount="100">সম্পন্ন</button></div></article>
+<article class="card task"><div><h3>নমুনা কুইজ</h3><p>অ্যাপ ব্যবহারের নিয়ম</p></div><div style="text-align:right"><div class="reward">+৳১২৫</div><button class="btn taskBtn" data-id="quiz" data-amount="125">সম্পন্ন</button></div></article>
 </section>
-<div class="section"><h2>ডেমো উত্তোলন অনুরোধ</h2></div>
-<section class="card"><p class="muted" style="margin-top:0">বাস্তব OTP, পরিচয় যাচাই বা bKash সংযোগ নেই। এটি শুধু ফর্মের নমুনা।</p><label for="phone">মোবাইল নম্বর (নমুনা)</label><input id="phone" inputmode="tel" placeholder="01XXXXXXXXX"><label for="realname">নাম (নমুনা)</label><input id="realname" placeholder="আপনার নাম"><button class="btn" id="withdraw" onclick="requestDemo()" disabled>ডেমো অনুরোধ তৈরি করুন</button><p class="notice">বাস্তব সেবা চালুর আগে বৈধ স্পনসর আয়, লিখিত টাস্ক-শর্ত, নিরাপদ সার্ভার, জালিয়াতি প্রতিরোধ এবং পেমেন্ট প্রদানকারীর অনুমোদন প্রয়োজন। বিজ্ঞাপন দেখা বা ক্লিকের বিনিময়ে নগদ পুরস্কার দেওয়ার নিয়ম সব বিজ্ঞাপন নেটওয়ার্কে অনুমোদিত নয়।</p></section>
-<div class="actions"><button class="btn secondary" onclick="resetDemo()">ডেমো রিসেট</button><button class="btn secondary" onclick="showInfo()">অ্যাপ সম্পর্কে</button></div>
+<section class="card" style="margin-top:18px"><h2>ডেমো উত্তোলন</h2><p class="muted">এখানে কোনো বাস্তব টাকা পাঠানো হয় না।</p><button class="btn secondary" disabled>বাস্তব উত্তোলন এখনো চালু নয়</button></section>
+<div class="actions"><button class="btn secondary" id="resetDemo">ডেমো রিসেট</button></div>
+</section>
 </main><div class="toast" id="toast"></div>
-<script>
-const KEY='tasktaka_demo_v1';let state=JSON.parse(localStorage.getItem(KEY)||'{"balance":0,"done":[]}');
-function save(){localStorage.setItem(KEY,JSON.stringify(state));render()}
-function money(n){return '৳'+new Intl.NumberFormat('bn-BD').format(n)}
-function render(){document.getElementById('balance').textContent=money(state.balance);document.getElementById('done').textContent=new Intl.NumberFormat('bn-BD').format(state.done.length);let p=Math.min(100,state.balance/1000*100);document.getElementById('percent').textContent=new Intl.NumberFormat('bn-BD').format(Math.floor(p))+'%';document.getElementById('bar').style.width=p+'%';document.getElementById('progressText').textContent=money(Math.max(0,1000-state.balance))+' বাকি (ডেমো)';document.getElementById('withdraw').disabled=state.balance<1000}
-function toast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
-function completeTask(id,amount,btn){if(state.done.includes(id)){toast('এই টাস্কটি আগে সম্পন্ন হয়েছে');return}state.done.push(id);state.balance+=amount;save();btn.textContent='সম্পন্ন হয়েছে';btn.disabled=true;toast('ডেমো পয়েন্ট যোগ হয়েছে')}
-function requestDemo(){let n=document.getElementById('realname').value.trim(),p=document.getElementById('phone').value.trim();if(!n||!p){toast('নমুনা নাম ও নম্বর লিখুন');return}if(state.balance<1000){toast('ডেমো সীমা এখনো পূরণ হয়নি');return}toast('ডেমো অনুরোধ তৈরি হয়েছে—কোনো টাকা পাঠানো হয়নি');}
-function resetDemo(){if(confirm('সব ডেমো হিসাব মুছে ফেলবেন?')){state={balance:0,done:[]};save();document.querySelectorAll('.task .btn').forEach(b=>{b.disabled=false;b.textContent='সম্পন্ন'});toast('ডেমো রিসেট হয়েছে')}}
-function showInfo(){alert('TaskTaka Demo\nএটি ফ্রন্টএন্ড প্রোটোটাইপ। বাস্তব অ্যাকাউন্ট, OTP, সার্ভার বা পেমেন্ট এখনো যুক্ত নয়।')}
-render();state.done.forEach(id=>{let i={profile:0,safety:1,feedback:2,quiz:3}[id];let b=document.querySelectorAll('.task .btn')[i];if(b){b.textContent='সম্পন্ন হয়েছে';b.disabled=true}});
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, sendPasswordResetEmail, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+const firebaseConfig={apiKey:"AIzaSyAWt_wIKzS0lzIh1yyJYWTzEXfwhLHTgMs",authDomain:"tasktaka-7b286.firebaseapp.com",projectId:"tasktaka-7b286",storageBucket:"tasktaka-7b286.firebasestorage.app",messagingSenderId:"777114171241",appId:"1:777114171241:web:31651293338d62a399aff8",measurementId:"G-S4Q38GQ14X"};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app),googleProvider=new GoogleAuthProvider();
+let mode="login",currentUser=null;
+const $=id=>document.getElementById(id);
+function setError(message=""){ $("authError").textContent=message; }
+function friendlyError(e){const m={"auth/email-already-in-use":"এই ইমেইল দিয়ে আগে অ্যাকাউন্ট খোলা হয়েছে।","auth/invalid-email":"ইমেইল ঠিক নয়।","auth/weak-password":"আরও শক্তিশালী পাসওয়ার্ড দিন (কমপক্ষে ৬ অক্ষর)।","auth/invalid-credential":"ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।","auth/popup-closed-by-user":"Google লগইন বন্ধ করা হয়েছে।","auth/unauthorized-domain":"Firebase Authentication-এর Authorized domains-এ এই ওয়েবসাইট যোগ করতে হবে।","permission-denied":"Firestore Database বা Security Rules সেটআপ করা হয়নি।"};return m[e.code]||e.message||"কিছু সমস্যা হয়েছে। আবার চেষ্টা করুন।";}
+function toast(s){const t=$("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",2800);}
+function setMode(next){mode=next;$("nameWrap").classList.toggle("hidden",mode!=="signup");$("submitAuth").textContent=mode==="signup"?"অ্যাকাউন্ট তৈরি করুন":"লগইন";$("loginTab").className=mode==="login"?"btn":"btn secondary";$("signupTab").className=mode==="signup"?"btn":"btn secondary";$("password").autocomplete=mode==="signup"?"new-password":"current-password";setError();}
+$("loginTab").onclick=()=>setMode("login");$("signupTab").onclick=()=>setMode("signup");
+async function ensureUserProfile(user,displayName=""){
+ const ref=doc(db,"users",user.uid),snap=await getDoc(ref);
+ if(!snap.exists()){await setDoc(ref,{uid:user.uid,displayName:displayName||user.displayName||"",email:user.email||"",createdAt:serverTimestamp(),updatedAt:serverTimestamp()});}
+}
+$("authForm").addEventListener("submit",async e=>{e.preventDefault();setError();$("submitAuth").disabled=true;
+ try{const email=$("email").value.trim(),password=$("password").value;
+ if(mode==="signup"){const name=$("fullName").value.trim();if(!name)throw new Error("আপনার নাম লিখুন।");const cred=await createUserWithEmailAndPassword(auth,email,password);await updateProfile(cred.user,{displayName:name});await ensureUserProfile(cred.user,name);}
+ else{const cred=await signInWithEmailAndPassword(auth,email,password);await ensureUserProfile(cred.user);}
+ }catch(err){setError(friendlyError(err));}finally{$("submitAuth").disabled=false;}
+});
+$("googleBtn").onclick=async()=>{setError();try{await signInWithPopup(auth,googleProvider);}catch(e){if(["auth/popup-blocked","auth/operation-not-supported-in-this-environment"].includes(e.code)){await signInWithRedirect(auth,googleProvider);}else setError(friendlyError(e));}};
+$("resetBtn").onclick=async()=>{const email=$("email").value.trim();if(!email){setError("আগে ইমেইল লিখুন, তারপর চাপুন।");return;}try{await sendPasswordResetEmail(auth,email);toast("পাসওয়ার্ড রিসেট লিংক ইমেইলে পাঠানো হয়েছে।");}catch(e){setError(friendlyError(e));}};
+$("logoutBtn").onclick=()=>signOut(auth);
+getRedirectResult(auth).catch(e=>setError(friendlyError(e)));
+const DEMO_KEY="tasktaka_demo_v2";
+function loadDemo(){try{return JSON.parse(localStorage.getItem(DEMO_KEY)||'{"balance":0,"done":[]}');}catch{return {balance:0,done:[]};}}
+let demo=loadDemo();
+function saveDemo(){localStorage.setItem(DEMO_KEY,JSON.stringify(demo));renderDemo();}
+function money(n){return "৳"+new Intl.NumberFormat("bn-BD").format(n);}
+function renderDemo(){$("balance").textContent=money(demo.balance);$("done").textContent=new Intl.NumberFormat("bn-BD").format(demo.done.length);const p=Math.min(100,demo.balance/1000*100);$("percent").textContent=Math.floor(p)+"%";$("bar").style.width=p+"%";$("progressText").textContent=money(Math.max(0,1000-demo.balance))+" বাকি (ডেমো)";document.querySelectorAll(".taskBtn").forEach(b=>{const done=demo.done.includes(b.dataset.id);b.disabled=done;b.textContent=done?"সম্পন্ন হয়েছে":"সম্পন্ন";});}
+document.querySelectorAll(".taskBtn").forEach(b=>b.onclick=()=>{if(demo.done.includes(b.dataset.id))return;demo.done.push(b.dataset.id);demo.balance+=Number(b.dataset.amount);saveDemo();toast("ডেমো পয়েন্ট যোগ হয়েছে");});
+$("resetDemo").onclick=()=>{if(confirm("এই ডিভাইসের ডেমো হিসাব রিসেট করবেন?")){demo={balance:0,done:[]};saveDemo();}};
+onAuthStateChanged(auth,async user=>{currentUser=user;if(user){try{await ensureUserProfile(user);$("welcome").textContent="স্বাগতম, "+(user.displayName||user.email||"ব্যবহারকারী");$("authView").classList.add("hidden");$("appView").classList.remove("hidden");renderDemo();}catch(e){$("authView").classList.remove("hidden");$("appView").classList.add("hidden");setError("প্রোফাইল সংরক্ষণ হয়নি: "+friendlyError(e));}}else{$("authView").classList.remove("hidden");$("appView").classList.add("hidden");}});
 </script></body></html>
