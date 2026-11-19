@@ -27,32 +27,32 @@
 <button class="btn secondary" id="googleBtn" type="button">Google দিয়ে চালিয়ে যান</button>
 <button class="btn secondary" id="resetBtn" type="button">পাসওয়ার্ড ভুলে গেছেন?</button>
 <div id="authError" class="error" role="status"></div>
-<p class="notice">আপনার অ্যাকাউন্টের তথ্য Firebase Authentication ও Firestore-এ সংরক্ষিত হবে। এই সংস্করণের ব্যালেন্স ও টাস্ক এখনো ডেমো; কোনো বাস্তব আয় বা পেমেন্ট নেই।</p>
+<p class="notice">আপনার অ্যাকাউন্টের তথ্য Firebase-এ সংরক্ষিত হবে। টাস্ক জমা ও পর্যালোচনার নমুনা ব্যবস্থা আছে; কোনো বাস্তব আয় বা পেমেন্ট নেই।</p>
 </section>
 <section id="appView" class="hidden">
 <div class="userline"><span id="welcome" class="muted"></span><button class="btn secondary" id="logoutBtn">লগআউট</button></div>
 <section class="hero"><div class="eyebrow">ছোট কাজ • পরিষ্কার হিসাব</div><h1>কাজ সম্পন্ন করুন, অগ্রগতি দেখুন</h1><p>TaskTaka-এর নমুনা ড্যাশবোর্ড। এখানে দেখানো টাস্ক, পয়েন্ট ও উত্তোলনের অনুরোধ পরীক্ষামূলক—কোনো বাস্তব টাকা বা পেমেন্ট নেই।</p></section>
 <section class="grid">
-<div class="card stat"><small>ডেমো ব্যালেন্স</small><div class="amount" id="balance">৳০</div><small>শুধু এই ডিভাইসে সংরক্ষিত</small></div>
-<div class="card stat"><small>সম্পন্ন টাস্ক</small><div class="amount" id="done">০</div><small>নমুনা হিসাব</small></div>
-<div class="card stat"><small>উত্তোলন সীমা (ডেমো)</small><div class="amount">৳১,০০০</div><small>এটি বাস্তব পেমেন্টের প্রতিশ্রুতি নয়</small></div>
+<div class="card stat"><small>পর্যালোচনাধীন টাস্ক</small><div class="amount" id="pendingCount">০</div><small>অ্যাডমিন যাচাই করবে</small></div>
+<div class="card stat"><small>অনুমোদিত টাস্ক</small><div class="amount" id="approvedCount">০</div><small>এখনো কোনো টাকা যোগ হয় না</small></div>
+<div class="card stat"><small>অ্যাকাউন্ট</small><div class="amount" style="font-size:19px">সুরক্ষিত</div><small>ব্যালেন্স ক্লায়েন্ট বদলাতে পারবে না</small></div>
 </section>
-<section class="card"><div class="section" style="margin:0"><h2>লক্ষ্যের অগ্রগতি</h2><strong id="percent">০%</strong></div><div class="progress"><div class="bar" id="bar"></div></div><small class="muted" id="progressText">৳১,০০০ ডেমো সীমা পর্যন্ত</small></section>
-<div class="section"><h2>নমুনা টাস্ক</h2><span class="pill">টেস্ট মোড</span></div>
+<section class="card"><h2>টাস্ক যাচাই ব্যবস্থা</h2><p class="muted">টাস্ক জমা দিলে তা Firestore-এ Pending হিসেবে সংরক্ষিত হবে। অনুমোদনের আগে কোনো পয়েন্ট বা টাকা যোগ হবে না।</p><div id="taskMessage" class="notice" aria-live="polite"></div></section>
+<div class="section"><h2>নমুনা টাস্ক</h2><span class="pill">পরীক্ষামূলক</span></div>
 <section class="tasks">
-<article class="card task"><div><h3>প্রোফাইল তথ্য পড়ুন</h3><p>নমুনা তথ্য যাচাই</p></div><div style="text-align:right"><div class="reward">+৳৫০</div><button class="btn taskBtn" data-id="profile" data-amount="50">সম্পন্ন</button></div></article>
-<article class="card task"><div><h3>নিরাপত্তা নির্দেশনা</h3><p>অ্যাকাউন্ট সুরক্ষা সম্পর্কে জানুন</p></div><div style="text-align:right"><div class="reward">+৳৭৫</div><button class="btn taskBtn" data-id="safety" data-amount="75">সম্পন্ন</button></div></article>
-<article class="card task"><div><h3>ফিডব্যাক ফর্ম দেখুন</h3><p>ডেমো অভিজ্ঞতা</p></div><div style="text-align:right"><div class="reward">+৳১০০</div><button class="btn taskBtn" data-id="feedback" data-amount="100">সম্পন্ন</button></div></article>
-<article class="card task"><div><h3>নমুনা কুইজ</h3><p>অ্যাপ ব্যবহারের নিয়ম</p></div><div style="text-align:right"><div class="reward">+৳১২৫</div><button class="btn taskBtn" data-id="quiz" data-amount="125">সম্পন্ন</button></div></article>
+<article class="card task"><div><h3>প্রোফাইল তথ্য পড়ুন</h3><p>নমুনা তথ্য যাচাই</p></div><div style="text-align:right"><div class="reward">+৳৫০</div><button class="btn taskBtn" data-id="profile" data-title="প্রোফাইল তথ্য পড়ুন" data-points="50">জমা দিন</button></div></article>
+<article class="card task"><div><h3>নিরাপত্তা নির্দেশনা</h3><p>অ্যাকাউন্ট সুরক্ষা সম্পর্কে জানুন</p></div><div style="text-align:right"><div class="reward">+৳৭৫</div><button class="btn taskBtn" data-id="safety" data-title="নিরাপত্তা নির্দেশনা" data-points="75">জমা দিন</button></div></article>
+<article class="card task"><div><h3>ফিডব্যাক ফর্ম দেখুন</h3><p>ডেমো অভিজ্ঞতা</p></div><div style="text-align:right"><div class="reward">+৳১০০</div><button class="btn taskBtn" data-id="feedback" data-title="ফিডব্যাক ফর্ম দেখুন" data-points="100">জমা দিন</button></div></article>
+<article class="card task"><div><h3>নমুনা কুইজ</h3><p>অ্যাপ ব্যবহারের নিয়ম</p></div><div style="text-align:right"><div class="reward">+৳১২৫</div><button class="btn taskBtn" data-id="quiz" data-title="নমুনা কুইজ" data-points="125">জমা দিন</button></div></article>
 </section>
-<section class="card" style="margin-top:18px"><h2>ডেমো উত্তোলন</h2><p class="muted">এখানে কোনো বাস্তব টাকা পাঠানো হয় না।</p><button class="btn secondary" disabled>বাস্তব উত্তোলন এখনো চালু নয়</button></section>
-<div class="actions"><button class="btn secondary" id="resetDemo">ডেমো রিসেট</button></div>
+<section class="card" style="margin-top:18px"><h2>আমার টাস্কের অবস্থা</h2><div id="submissionList" class="notice">লোড হচ্ছে…</div></section>
+<section class="card" style="margin-top:18px"><h2>উত্তোলন</h2><p class="muted">বাস্তব ব্যালেন্স ও উত্তোলন এখনো চালু নয়। যাচাইকৃত সার্ভার এবং অনুমোদিত পেমেন্ট ব্যবস্থা তৈরি না হওয়া পর্যন্ত কোনো টাকা পাঠানো হবে না।</p><button class="btn secondary" disabled>উত্তোলন বন্ধ</button></section>
 </section>
 </main><div class="toast" id="toast"></div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, sendPasswordResetEmail, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
 const firebaseConfig={apiKey:"AIzaSyAWt_wIKzS0lzIh1yyJYWTzEXfwhLHTgMs",authDomain:"tasktaka-7b286.firebaseapp.com",projectId:"tasktaka-7b286",storageBucket:"tasktaka-7b286.firebasestorage.app",messagingSenderId:"777114171241",appId:"1:777114171241:web:31651293338d62a399aff8",measurementId:"G-S4Q38GQ14X"};
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app),googleProvider=new GoogleAuthProvider();
@@ -77,13 +77,49 @@ $("googleBtn").onclick=async()=>{setError();try{await signInWithPopup(auth,googl
 $("resetBtn").onclick=async()=>{const email=$("email").value.trim();if(!email){setError("আগে ইমেইল লিখুন, তারপর চাপুন।");return;}try{await sendPasswordResetEmail(auth,email);toast("পাসওয়ার্ড রিসেট লিংক ইমেইলে পাঠানো হয়েছে।");}catch(e){setError(friendlyError(e));}};
 $("logoutBtn").onclick=()=>signOut(auth);
 getRedirectResult(auth).catch(e=>setError(friendlyError(e)));
-const DEMO_KEY="tasktaka_demo_v2";
-function loadDemo(){try{return JSON.parse(localStorage.getItem(DEMO_KEY)||'{"balance":0,"done":[]}');}catch{return {balance:0,done:[]};}}
-let demo=loadDemo();
-function saveDemo(){localStorage.setItem(DEMO_KEY,JSON.stringify(demo));renderDemo();}
-function money(n){return "৳"+new Intl.NumberFormat("bn-BD").format(n);}
-function renderDemo(){$("balance").textContent=money(demo.balance);$("done").textContent=new Intl.NumberFormat("bn-BD").format(demo.done.length);const p=Math.min(100,demo.balance/1000*100);$("percent").textContent=Math.floor(p)+"%";$("bar").style.width=p+"%";$("progressText").textContent=money(Math.max(0,1000-demo.balance))+" বাকি (ডেমো)";document.querySelectorAll(".taskBtn").forEach(b=>{const done=demo.done.includes(b.dataset.id);b.disabled=done;b.textContent=done?"সম্পন্ন হয়েছে":"সম্পন্ন";});}
-document.querySelectorAll(".taskBtn").forEach(b=>b.onclick=()=>{if(demo.done.includes(b.dataset.id))return;demo.done.push(b.dataset.id);demo.balance+=Number(b.dataset.amount);saveDemo();toast("ডেমো পয়েন্ট যোগ হয়েছে");});
-$("resetDemo").onclick=()=>{if(confirm("এই ডিভাইসের ডেমো হিসাব রিসেট করবেন?")){demo={balance:0,done:[]};saveDemo();}};
-onAuthStateChanged(auth,async user=>{currentUser=user;if(user){try{await ensureUserProfile(user);$("welcome").textContent="স্বাগতম, "+(user.displayName||user.email||"ব্যবহারকারী");$("authView").classList.add("hidden");$("appView").classList.remove("hidden");renderDemo();}catch(e){$("authView").classList.remove("hidden");$("appView").classList.add("hidden");setError("প্রোফাইল সংরক্ষণ হয়নি: "+friendlyError(e));}}else{$("authView").classList.remove("hidden");$("appView").classList.add("hidden");}});
+
+const taskDefinitions={
+ profile:{title:"প্রোফাইল তথ্য পড়ুন",points:50},
+ safety:{title:"নিরাপত্তা নির্দেশনা",points:75},
+ feedback:{title:"ফিডব্যাক ফর্ম দেখুন",points:100},
+ quiz:{title:"নমুনা কুইজ",points:125}
+};
+let mySubmissions=[];
+function bn(n){return new Intl.NumberFormat("bn-BD").format(n);}
+function renderSubmissions(){
+ const pending=mySubmissions.filter(x=>x.status==="pending").length;
+ const approved=mySubmissions.filter(x=>x.status==="approved").length;
+ $("pendingCount").textContent=bn(pending);
+ $("approvedCount").textContent=bn(approved);
+ $("submissionList").innerHTML=mySubmissions.length
+  ? mySubmissions.map(x=>'<div style="padding:9px 0;border-bottom:1px solid var(--line)"><strong>'+x.title+'</strong> — '+(x.status==="pending"?"পর্যালোচনাধীন":x.status==="approved"?"অনুমোদিত":"বাতিল")+'</div>').join("")
+  : "এখনো কোনো টাস্ক জমা দেওয়া হয়নি।";
+ document.querySelectorAll(".taskBtn").forEach(b=>{
+  const found=mySubmissions.some(x=>x.taskId===b.dataset.id);
+  b.disabled=found;
+  b.textContent=found?"জমা হয়েছে":"জমা দিন";
+ });
+}
+async function loadSubmissions(){
+ if(!currentUser)return;
+ const q=query(collection(db,"taskSubmissions"),where("uid","==",currentUser.uid));
+ const snap=await getDocs(q);
+ mySubmissions=snap.docs.map(d=>d.data());
+ renderSubmissions();
+}
+document.querySelectorAll(".taskBtn").forEach(b=>b.onclick=async()=>{
+ if(!currentUser)return;
+ b.disabled=true;
+ try{
+  const id=b.dataset.id,task=taskDefinitions[id];
+  const ref=doc(db,"taskSubmissions",currentUser.uid+"_"+id);
+  await setDoc(ref,{uid:currentUser.uid,taskId:id,title:task.title,rewardPoints:task.points,status:"pending",createdAt:serverTimestamp()});
+  await loadSubmissions();
+  toast("টাস্ক জমা হয়েছে—অ্যাডমিন যাচাই করবে।");
+ }catch(e){
+  b.disabled=false;
+  toast(e.code==="permission-denied"?"Firestore Rules আপডেট/Publish হয়েছে কি না দেখুন।":friendlyError(e));
+ }
+});
+onAuthStateChanged(auth,async user=>{currentUser=user;if(user){try{await ensureUserProfile(user);$("welcome").textContent="স্বাগতম, "+(user.displayName||user.email||"ব্যবহারকারী");$("authView").classList.add("hidden");$("appView").classList.remove("hidden");await loadSubmissions();}catch(e){$("authView").classList.remove("hidden");$("appView").classList.add("hidden");setError("প্রোফাইল সংরক্ষণ হয়নি: "+friendlyError(e));}}else{$("authView").classList.remove("hidden");$("appView").classList.add("hidden");}});
 </script></body></html>
