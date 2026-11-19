@@ -9,8 +9,8 @@ service cloud.firestore {
 
     // A user can only read their own profile.
     match /users/{userId} {
-      allow read: if request.auth != null
-        && request.auth.uid == userId;
+      allow read: if isAdmin()
+        || (request.auth != null && request.auth.uid == userId);
 
       allow create: if request.auth != null
         && request.auth.uid == userId
