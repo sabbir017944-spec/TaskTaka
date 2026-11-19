@@ -53,7 +53,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, sendPasswordResetEmail, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
 const firebaseConfig={apiKey:"AIzaSyAWt_wIKzS0lzIh1yyJYWTzEXfwhLHTgMs",authDomain:"tasktaka-7b286.firebaseapp.com",projectId:"tasktaka-7b286",storageBucket:"tasktaka-7b286.firebasestorage.app",messagingSenderId:"777114171241",appId:"1:777114171241:web:31651293338d62a399aff8",measurementId:"G-S4Q38GQ14X"};
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app),googleProvider=new GoogleAuthProvider();
@@ -102,11 +102,18 @@ function renderSubmissions(){
   b.textContent=found?"জমা হয়েছে":"জমা দিন";
  });
 }
+async function reviewSubmission(submissionId,nextStatus){
+ if(!currentUser || currentUser.uid!==ADMIN_UID)throw new Error("অ্যাডমিন অনুমতি নেই।");
+ await updateDoc(doc(db,"taskSubmissions",submissionId),{status:nextStatus,reviewedAt:serverTimestamp()});
+ await loadAdminSubmissions();
+ toast(nextStatus==="approved"?"টাস্ক অনুমোদিত হয়েছে।":"টাস্ক বাতিল করা হয়েছে।");
+}
 async function loadAdminSubmissions(){
  if(!currentUser || currentUser.uid!==ADMIN_UID)return;
  const snap=await getDocs(collection(db,"taskSubmissions"));
- const rows=snap.docs.map(d=>d.data());
- $("adminSubmissions").innerHTML=rows.length?rows.map(x=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><strong>${x.title}</strong><br><span class="muted">ব্যবহারকারী: ${x.uid}</span><br><span class="muted">স্ট্যাটাস: ${x.status==="pending"?"পর্যালোচনাধীন":x.status==="approved"?"অনুমোদিত":"বাতিল"}</span></div>`).join(""):"এখনো কোনো টাস্ক জমা পড়েনি।";
+ const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+ $("adminSubmissions").innerHTML=rows.length?rows.map(x=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><strong>${x.title}</strong><br><span class="muted">ব্যবহারকারী: ${x.uid}</span><br><span class="muted">স্ট্যাটাস: ${x.status==="pending"?"পর্যালোচনাধীন":x.status==="approved"?"অনুমোদিত":"বাতিল"}</span>${x.status==="pending"?`<div class="actions"><button class="btn" data-review="approved" data-id="${x.id}">অনুমোদন</button><button class="btn secondary" data-review="rejected" data-id="${x.id}">বাতিল</button></div>`:""}</div>`).join(""):"এখনো কোনো টাস্ক জমা পড়েনি।";
+ $("adminSubmissions").querySelectorAll("[data-review]").forEach(b=>b.onclick=async()=>{b.disabled=true;try{await reviewSubmission(b.dataset.id,b.dataset.review);}catch(e){b.disabled=false;toast(friendlyError(e));}});
 }
 $("adminToggle").onclick=()=>{ $("adminPanel").classList.toggle("hidden"); if(!$("adminPanel").classList.contains("hidden"))loadAdminSubmissions().catch(e=>toast(friendlyError(e))); };
 $("refreshAdmin").onclick=()=>loadAdminSubmissions().catch(e=>toast(friendlyError(e)));
