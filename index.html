@@ -31,7 +31,7 @@
 </section>
 <section id="appView" class="hidden">
 <div class="userline"><span id="welcome" class="muted"></span><button class="btn secondary hidden" id="adminToggle">অ্যাডমিন প্যানেল</button><button class="btn secondary" id="logoutBtn">লগআউট</button></div>
-<section id="adminPanel" class="card hidden" style="margin:16px 0"><h2>অ্যাডমিন প্যানেল</h2><p class="muted">সব ব্যবহারকারীর জমা দেওয়া টাস্ক এখানে দেখা যাবে। এটি শুধু দেখার জন্য—এখান থেকে অনুমোদন বা টাকা যোগ করা যাবে না।</p><div class="actions"><button class="btn" id="refreshAdmin">রিফ্রেশ</button></div><div id="adminSubmissions" class="notice">লোড হচ্ছে…</div></section>
+<section id="adminPanel" class="card hidden" style="margin:16px 0"><h2>অ্যাডমিন প্যানেল</h2><p class="muted">সব ব্যবহারকারীর জমা দেওয়া টাস্ক এখানে দেখা যাবে। এটি শুধু দেখার জন্য—এখান থেকে অনুমোদন বা টাকা যোগ করা যাবে না।</p><div class="actions"><button class="btn" id="refreshAdmin">রিফ্রেশ</button></div><div id="adminSubmissions" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>ব্যবহারকারী তালিকা</h3><div id="adminUserCount" class="muted">লোড হচ্ছে…</div><div id="adminUsers" class="notice">লোড হচ্ছে…</div></section>
 <section class="hero"><div class="eyebrow">ছোট কাজ • পরিষ্কার হিসাব</div><h1>কাজ সম্পন্ন করুন, অগ্রগতি দেখুন</h1><p>TaskTaka-এর নমুনা ড্যাশবোর্ড। এখানে দেখানো টাস্ক, পয়েন্ট ও উত্তোলনের অনুরোধ পরীক্ষামূলক—কোনো বাস্তব টাকা বা পেমেন্ট নেই।</p></section>
 <section class="grid">
 <div class="card stat"><small>পর্যালোচনাধীন টাস্ক</small><div class="amount" id="pendingCount">০</div><small>অ্যাডমিন যাচাই করবে</small></div>
@@ -112,8 +112,18 @@ async function reviewSubmission(submissionId,nextStatus){
  await loadAdminSubmissions();
  toast(nextStatus==="approved"?"টাস্ক অনুমোদিত হয়েছে।":"টাস্ক বাতিল করা হয়েছে।");
 }
+async function loadAdminUsers(){
+ if(!currentUser || currentUser.uid!==ADMIN_UID)return;
+ const snap=await getDocs(collection(db,"users"));
+ const submissions=await getDocs(collection(db,"taskSubmissions"));
+ const taskRows=submissions.docs.map(d=>d.data());
+ $("adminUserCount").textContent="মোট ব্যবহারকারী: "+bn(snap.size);
+ const users=snap.docs.map(d=>({id:d.id,...d.data()}));
+ $("adminUsers").innerHTML=users.length?users.map(u=>{const own=taskRows.filter(t=>t.uid===u.id);const approved=own.filter(t=>t.status==="approved");const points=approved.reduce((n,t)=>n+(Number(t.rewardPoints)||0),0);return `<div style="padding:10px 0;border-bottom:1px solid var(--line)"><strong>${u.displayName||"নাম দেওয়া হয়নি"}</strong><br><span class="muted">${u.email||"ইমেইল নেই"}</span><br><span class="muted">জমা: ${bn(own.length)} | অনুমোদিত: ${bn(approved.length)} | ডেমো পয়েন্ট: ${bn(points)}</span></div>`;}).join(""):"কোনো ব্যবহারকারী পাওয়া যায়নি।";
+}
 async function loadAdminSubmissions(){
  if(!currentUser || currentUser.uid!==ADMIN_UID)return;
+ await loadAdminUsers();
  const snap=await getDocs(collection(db,"taskSubmissions"));
  const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
  $("adminSubmissions").innerHTML=rows.length?rows.map(x=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><strong>${x.title}</strong><br><span class="muted">ব্যবহারকারী: ${x.uid}</span><br><span class="muted">স্ট্যাটাস: ${x.status==="pending"?"পর্যালোচনাধীন":x.status==="approved"?"অনুমোদিত":"বাতিল"}</span>${x.status==="pending"?`<div class="actions"><button class="btn" data-review="approved" data-id="${x.id}">অনুমোদন</button><button class="btn secondary" data-review="rejected" data-id="${x.id}">বাতিল</button></div>`:""}</div>`).join(""):"এখনো কোনো টাস্ক জমা পড়েনি।";
