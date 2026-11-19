@@ -131,6 +131,47 @@ service cloud.firestore {
       allow create: if isAdmin()
         && request.resource.data.keys().hasOnly(['name','imageUrl','description','demoCoinPrice','demoCommission','active','createdAt','demoOnly'])
         && request.resource.data.name is string
+        && request.resource.data.imageUrl is string
+        && request.resource.data.imageUrl.size() <= 600000
+        && (request.resource.data.imageUrl == ''
+          || request.resource.data.imageUrl.matches('^data:image/jpeg;base64,[A-Za-z0-9+/=]+
+        && request.resource.data.demoCoinPrice > 0
+        && request.resource.data.demoCommission is int
+        && request.resource.data.demoCommission >= 0
+        && request.resource.data.demoOnly == true
+        && request.resource.data.createdAt == request.time;
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['active']);
+      allow delete: if false;
+    }
+
+    // Demo order requests only: no coin deduction, wallet credit, or payment.
+    match /shopOrders/{orderId} {
+      allow get, list: if isAdmin()
+        || (request.auth != null && resource.data.uid == request.auth.uid);
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['uid','productId','productName','demoCoinPrice','demoCommission','status','demoOnly','createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.productId is string
+        && request.resource.data.productName is string
+        && request.resource.data.demoCoinPrice is int
+        && request.resource.data.demoCoinPrice > 0
+        && request.resource.data.demoCommission is int
+        && request.resource.data.demoCommission >= 0
+        && request.resource.data.status == 'pending'
+        && request.resource.data.demoOnly == true
+        && request.resource.data.createdAt == request.time;
+      allow update: if isAdmin()
+        && resource.data.status == 'pending'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','reviewedAt'])
+        && request.resource.data.status in ['approved','rejected']
+        && request.resource.data.reviewedAt == request.time;
+      allow delete: if false;
+    }
+
+    // All other collections remain closed by default.
+  }
+}))
         && request.resource.data.demoCoinPrice is int
         && request.resource.data.demoCoinPrice > 0
         && request.resource.data.demoCommission is int
