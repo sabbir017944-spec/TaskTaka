@@ -1,17 +1,62 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // A user can only read their own profile.
     match /users/{userId} {
-      allow read: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null
+        && request.auth.uid == userId;
+
       allow create: if request.auth != null
         && request.auth.uid == userId
         && request.resource.data.keys().hasOnly(['uid','displayName','email','createdAt','updatedAt'])
         && request.resource.data.uid == userId
         && request.resource.data.email == request.auth.token.email;
+
       allow update: if request.auth != null
         && request.auth.uid == userId
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName','updatedAt']);
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['displayName','updatedAt']);
+
       allow delete: if false;
     }
+
+    // Task submissions are immutable from the user's side.
+    // No client can approve a task or credit a balance.
+    match /taskSubmissions/{submissionId} {
+      allow get, list: if request.auth != null
+        && resource.data.uid == request.auth.uid;
+
+      allow create: if request.auth != null
+        && submissionId == request.auth.uid + "_" + request.resource.data.taskId
+        && request.resource.data.keys().hasOnly([
+          'uid','taskId','title','rewardPoints','status','createdAt'
+        ])
+        && request.resource.data.keys().hasAll([
+          'uid','taskId','title','rewardPoints','status','createdAt'
+        ])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.createdAt == request.time
+        && (
+          (request.resource.data.taskId == 'profile'
+            && request.resource.data.title == 'প্রোফাইল তথ্য পড়ুন'
+            && request.resource.data.rewardPoints == 50)
+          || (request.resource.data.taskId == 'safety'
+            && request.resource.data.title == 'নিরাপত্তা নির্দেশনা'
+            && request.resource.data.rewardPoints == 75)
+          || (request.resource.data.taskId == 'feedback'
+            && request.resource.data.title == 'ফিডব্যাক ফর্ম দেখুন'
+            && request.resource.data.rewardPoints == 100)
+          || (request.resource.data.taskId == 'quiz'
+            && request.resource.data.title == 'নমুনা কুইজ'
+            && request.resource.data.rewardPoints == 125)
+        )
+        && !exists(/databases/$(database)/documents/taskSubmissions/$(submissionId));
+
+      allow update, delete: if false;
+    }
+
+    // All other collections remain closed by default.
   }
 }
