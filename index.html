@@ -35,16 +35,17 @@
 <section class="hero"><div class="eyebrow">ছোট কাজ • পরিষ্কার হিসাব</div><h1>কাজ সম্পন্ন করুন, অগ্রগতি দেখুন</h1><p>TaskTaka-এর নমুনা ড্যাশবোর্ড। এখানে দেখানো টাস্ক, পয়েন্ট ও উত্তোলনের অনুরোধ পরীক্ষামূলক—কোনো বাস্তব টাকা বা পেমেন্ট নেই।</p></section>
 <section class="grid">
 <div class="card stat"><small>পর্যালোচনাধীন টাস্ক</small><div class="amount" id="pendingCount">০</div><small>অ্যাডমিন যাচাই করবে</small></div>
-<div class="card stat"><small>অনুমোদিত টাস্ক</small><div class="amount" id="approvedCount">০</div><small>এখনো কোনো টাকা যোগ হয় না</small></div>
+<div class="card stat"><small>অনুমোদিত টাস্ক</small><div class="amount" id="approvedCount">০</div><small>যাচাই সম্পন্ন</small></div>
+<div class="card stat"><small>ডেমো পয়েন্ট</small><div class="amount" id="approvedPoints">০</div><small>এগুলো টাকা নয়, উত্তোলনযোগ্য নয়</small></div>
 <div class="card stat"><small>অ্যাকাউন্ট</small><div class="amount" style="font-size:19px">সুরক্ষিত</div><small>ব্যালেন্স ক্লায়েন্ট বদলাতে পারবে না</small></div>
 </section>
 <section class="card"><h2>টাস্ক যাচাই ব্যবস্থা</h2><p class="muted">টাস্ক জমা দিলে তা Firestore-এ Pending হিসেবে সংরক্ষিত হবে। অনুমোদনের আগে কোনো পয়েন্ট বা টাকা যোগ হবে না।</p><div id="taskMessage" class="notice" aria-live="polite"></div></section>
 <div class="section"><h2>নমুনা টাস্ক</h2><span class="pill">পরীক্ষামূলক</span></div>
 <section class="tasks">
-<article class="card task"><div><h3>প্রোফাইল তথ্য পড়ুন</h3><p>নমুনা তথ্য যাচাই</p></div><div style="text-align:right"><div class="reward">+৳৫০</div><button class="btn taskBtn" data-id="profile" data-title="প্রোফাইল তথ্য পড়ুন" data-points="50">জমা দিন</button></div></article>
-<article class="card task"><div><h3>নিরাপত্তা নির্দেশনা</h3><p>অ্যাকাউন্ট সুরক্ষা সম্পর্কে জানুন</p></div><div style="text-align:right"><div class="reward">+৳৭৫</div><button class="btn taskBtn" data-id="safety" data-title="নিরাপত্তা নির্দেশনা" data-points="75">জমা দিন</button></div></article>
-<article class="card task"><div><h3>ফিডব্যাক ফর্ম দেখুন</h3><p>ডেমো অভিজ্ঞতা</p></div><div style="text-align:right"><div class="reward">+৳১০০</div><button class="btn taskBtn" data-id="feedback" data-title="ফিডব্যাক ফর্ম দেখুন" data-points="100">জমা দিন</button></div></article>
-<article class="card task"><div><h3>নমুনা কুইজ</h3><p>অ্যাপ ব্যবহারের নিয়ম</p></div><div style="text-align:right"><div class="reward">+৳১২৫</div><button class="btn taskBtn" data-id="quiz" data-title="নমুনা কুইজ" data-points="125">জমা দিন</button></div></article>
+<article class="card task"><div><h3>প্রোফাইল তথ্য পড়ুন</h3><p>নমুনা তথ্য যাচাই</p></div><div style="text-align:right"><div class="reward">+৫০ পয়েন্ট</div><button class="btn taskBtn" data-id="profile" data-title="প্রোফাইল তথ্য পড়ুন" data-points="50">জমা দিন</button></div></article>
+<article class="card task"><div><h3>নিরাপত্তা নির্দেশনা</h3><p>অ্যাকাউন্ট সুরক্ষা সম্পর্কে জানুন</p></div><div style="text-align:right"><div class="reward">+৭৫ পয়েন্ট</div><button class="btn taskBtn" data-id="safety" data-title="নিরাপত্তা নির্দেশনা" data-points="75">জমা দিন</button></div></article>
+<article class="card task"><div><h3>ফিডব্যাক ফর্ম দেখুন</h3><p>ডেমো অভিজ্ঞতা</p></div><div style="text-align:right"><div class="reward">+১০০ পয়েন্ট</div><button class="btn taskBtn" data-id="feedback" data-title="ফিডব্যাক ফর্ম দেখুন" data-points="100">জমা দিন</button></div></article>
+<article class="card task"><div><h3>নমুনা কুইজ</h3><p>অ্যাপ ব্যবহারের নিয়ম</p></div><div style="text-align:right"><div class="reward">+১২৫ পয়েন্ট</div><button class="btn taskBtn" data-id="quiz" data-title="নমুনা কুইজ" data-points="125">জমা দিন</button></div></article>
 </section>
 <section class="card" style="margin-top:18px"><h2>আমার টাস্কের অবস্থা</h2><div id="submissionList" class="notice">লোড হচ্ছে…</div></section>
 <section class="card" style="margin-top:18px"><h2>উত্তোলন</h2><p class="muted">বাস্তব ব্যালেন্স ও উত্তোলন এখনো চালু নয়। যাচাইকৃত সার্ভার এবং অনুমোদিত পেমেন্ট ব্যবস্থা তৈরি না হওয়া পর্যন্ত কোনো টাকা পাঠানো হবে না।</p><button class="btn secondary" disabled>উত্তোলন বন্ধ</button></section>
@@ -90,7 +91,10 @@ let mySubmissions=[];
 function bn(n){return new Intl.NumberFormat("bn-BD").format(n);}
 function renderSubmissions(){
  const pending=mySubmissions.filter(x=>x.status==="pending").length;
- const approved=mySubmissions.filter(x=>x.status==="approved").length;
+ const approvedRows=mySubmissions.filter(x=>x.status==="approved");
+ const approved=approvedRows.length;
+ const approvedPoints=approvedRows.reduce((sum,x)=>sum+(Number(x.rewardPoints)||0),0);
+ $("approvedPoints").textContent=bn(approvedPoints);
  $("pendingCount").textContent=bn(pending);
  $("approvedCount").textContent=bn(approved);
  $("submissionList").innerHTML=mySubmissions.length
