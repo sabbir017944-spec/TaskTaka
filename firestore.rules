@@ -100,10 +100,10 @@ service cloud.firestore {
         || (request.auth != null && resource.data.uid == request.auth.uid);
 
       allow create: if request.auth != null
-        && requestId.matches('^' + request.auth.uid + '_goat_[0-9]+
-  }
-})
         && request.resource.data.keys().hasOnly([
+          'uid','farmId','points','status','demoOnly','createdAt'
+        ])
+        && request.resource.data.keys().hasAll([
           'uid','farmId','points','status','demoOnly','createdAt'
         ])
         && request.resource.data.uid == request.auth.uid
