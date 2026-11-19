@@ -31,7 +31,18 @@
 </section>
 <section id="appView" class="hidden">
 <div class="userline"><span id="welcome" class="muted"></span><button class="btn secondary hidden" id="adminToggle">অ্যাডমিন প্যানেল</button><button class="btn secondary" id="logoutBtn">লগআউট</button></div>
-<section id="adminPanel" class="card hidden" style="margin:16px 0"><h2>অ্যাডমিন প্যানেল</h2><p class="muted">সব ব্যবহারকারীর জমা দেওয়া টাস্ক এখানে দেখা যাবে। এটি শুধু দেখার জন্য—এখান থেকে অনুমোদন বা টাকা যোগ করা যাবে না।</p><div class="actions"><button class="btn" id="refreshAdmin">রিফ্রেশ</button></div><div id="adminSubmissions" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Farm বুকিং</h3><div id="adminFarmBookings" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>ডেমো Withdrawal Requests</h3><div id="adminWithdrawals" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>ব্যবহারকারী তালিকা</h3><div id="adminUserCount" class="muted">লোড হচ্ছে…</div><div id="adminUsers" class="notice">লোড হচ্ছে…</div></section>
+<section id="adminPanel" class="card hidden" style="margin:16px 0"><h2>অ্যাডমিন প্যানেল</h2><p class="muted">সব ব্যবহারকারীর জমা দেওয়া টাস্ক এখানে দেখা যাবে। এটি শুধু দেখার জন্য—এখান থেকে অনুমোদন বা টাকা যোগ করা যাবে না।</p><div class="actions"><button class="btn" id="refreshAdmin">রিফ্রেশ</button></div><div id="adminSubmissions" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Shop Products — পণ্য যোগ</h3>
+<div class="card" style="background:#0e1a2b;margin:10px 0">
+<label for="productName">পণ্যের নাম</label><input id="productName" placeholder="যেমন: টি-শার্ট">
+<label for="productImage">ছবির URL</label><input id="productImage" type="url" placeholder="https://...">
+<label for="productPrice">দাম (Demo Coins)</label><input id="productPrice" type="number" min="1" step="1" placeholder="500">
+<label for="productCommission">কমিশন (Demo Coins — শুধু প্রদর্শনের জন্য)</label><input id="productCommission" type="number" min="0" step="1" placeholder="50">
+<label for="productDescription">বিবরণ</label><input id="productDescription" placeholder="পণ্যের বিবরণ">
+<div class="actions"><button class="btn" id="saveProductBtn">পণ্য যোগ করুন</button></div>
+<p class="notice">ছবি URL ব্যবহার করুন। কমিশন নগদ বা ব্যালেন্স হিসেবে দেওয়া হবে না।</p>
+</div><div id="adminProducts" class="notice">পণ্য লোড হচ্ছে…</div>
+<h3>Shop Orders — অর্ডার</h3><div id="adminShopOrders" class="notice">লোড হচ্ছে…</div>
+<hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Farm বুকিং</h3><div id="adminFarmBookings" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>ডেমো Withdrawal Requests</h3><div id="adminWithdrawals" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>ব্যবহারকারী তালিকা</h3><div id="adminUserCount" class="muted">লোড হচ্ছে…</div><div id="adminUsers" class="notice">লোড হচ্ছে…</div></section>
 <section class="card" style="margin:16px 0">
  <div class="section"><h2>All Farms</h2><span class="pill">ডেমো প্রকল্প</span></div>
  <div class="tabs"><button class="btn" id="regularFarms">Regular</button><button class="btn secondary" id="shariahFarms">Shariah</button></div>
@@ -45,6 +56,12 @@
   <div id="withdrawMessage" class="notice">শুধু বৃহস্পতিবার ও শুক্রবার ডেমো অনুরোধ দেওয়া যাবে। ন্যূনতম ৫০০ ডেমো পয়েন্ট।</div>
   <h4>আমার ডেমো অনুরোধ</h4><div id="myWithdrawals" class="notice">লোড হচ্ছে…</div>
  </div>
+</section>
+<section class="card" style="margin:16px 0">
+<div class="section"><h2>Demo Coin Shop</h2><span class="pill">শুধু ডেমো</span></div>
+<p class="notice">পণ্যের দাম ও কমিশন Demo Coins-এ দেখানো হয়। এখানে কোনো টাকা জমা/পেমেন্ট হয় না, কয়েন কেনা বা নগদে রূপান্তর করা যায় না। অর্ডার কেবল পরীক্ষামূলক অনুরোধ।</p>
+<div id="shopProducts" class="tasks">পণ্য লোড হচ্ছে…</div>
+<h3>আমার অর্ডার</h3><div id="myShopOrders" class="notice">লোড হচ্ছে…</div>
 </section>
 <section class="hero"><div class="eyebrow">ছোট কাজ • পরিষ্কার হিসাব</div><h1>কাজ সম্পন্ন করুন, অগ্রগতি দেখুন</h1><p>TaskTaka-এর নমুনা ড্যাশবোর্ড। এখানে দেখানো টাস্ক, পয়েন্ট ও উত্তোলনের অনুরোধ পরীক্ষামূলক—কোনো বাস্তব টাকা বা পেমেন্ট নেই।</p></section>
 <section class="grid">
@@ -170,6 +187,86 @@ async function loadAdminWithdrawals(){
   catch(e){b.disabled=false;toast(friendlyError(e));}
  });
 }
+
+// Demo Coin Shop: product catalog and non-financial order requests only.
+function safeProductImage(url){
+ const s=String(url||"").trim();
+ return /^https:\/\//i.test(s)?s:"";
+}
+function productCard(p){
+ const img=safeProductImage(p.imageUrl);
+ return `<article class="card">
+ ${img?`<img src="${escapeHtml(img)}" alt="" style="width:100%;height:150px;object-fit:cover;border-radius:12px">`:`<div style="height:110px;display:grid;place-items:center;background:#1c2b40;border-radius:12px;font-size:38px">🛍️</div>`}
+ <h3>${escapeHtml(p.name)}</h3><p class="muted">${escapeHtml(p.description||"")}</p>
+ <div class="reward">${bn(Number(p.demoCoinPrice)||0)} Demo Coins</div>
+ <p class="notice">ডেমো কমিশন: ${bn(Number(p.demoCommission)||0)} Coins (নগদ নয়)</p>
+ <button class="btn" data-order-product="${escapeHtml(p.id)}">ডেমো অর্ডার</button>
+ </article>`;
+}
+async function loadShopProducts(){
+ if(!currentUser)return;
+ const snap=await getDocs(collection(db,"shopProducts"));
+ const products=snap.docs.map(d=>({id:d.id,...d.data()})).filter(p=>p.active!==false);
+ $("shopProducts").innerHTML=products.length?products.map(productCard).join(""):"এখনো কোনো পণ্য যোগ করা হয়নি।";
+ $("shopProducts").querySelectorAll("[data-order-product]").forEach(b=>b.onclick=()=>requestDemoOrder(b.dataset.orderProduct));
+}
+async function requestDemoOrder(productId){
+ try{
+  const pSnap=await getDoc(doc(db,"shopProducts",productId));
+  if(!pSnap.exists())throw new Error("পণ্যটি পাওয়া যায়নি।");
+  const p=pSnap.data();
+  if(p.active!==true)throw new Error("পণ্যটি এখন পাওয়া যাচ্ছে না।");
+  const orderId=currentUser.uid+"_"+productId+"_"+Date.now();
+  await setDoc(doc(db,"shopOrders",orderId),{
+   uid:currentUser.uid,productId,productName:p.name,
+   demoCoinPrice:p.demoCoinPrice,demoCommission:p.demoCommission||0,
+   status:"pending",demoOnly:true,createdAt:serverTimestamp()
+  });
+  toast("ডেমো অর্ডার অনুরোধ জমা হয়েছে। কোনো কয়েন কাটা বা টাকা নেওয়া হয়নি।");
+  await loadMyShopOrders();
+ }catch(e){toast(friendlyError(e));}
+}
+async function loadMyShopOrders(){
+ if(!currentUser)return;
+ const snap=await getDocs(query(collection(db,"shopOrders"),where("uid","==",currentUser.uid)));
+ const rows=snap.docs.map(d=>d.data());
+ $("myShopOrders").innerHTML=rows.length?rows.map(o=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)">
+ <strong>${escapeHtml(o.productName)}</strong> — ${bn(Number(o.demoCoinPrice)||0)} Demo Coins<br>
+ <span class="muted">অবস্থা: ${o.status==="pending"?"অপেক্ষমাণ":o.status==="approved"?"অনুমোদিত":"বাতিল"} · কোনো পেমেন্ট হয়নি</span>
+ </div>`).join(""):"এখনো কোনো অর্ডার নেই।";
+}
+async function saveDemoProduct(){
+ const name=$("productName").value.trim(),imageUrl=$("productImage").value.trim();
+ const demoCoinPrice=Number($("productPrice").value),demoCommission=Number($("productCommission").value||0);
+ const description=$("productDescription").value.trim();
+ if(!name||!Number.isSafeInteger(demoCoinPrice)||demoCoinPrice<1||!Number.isSafeInteger(demoCommission)||demoCommission<0){toast("নাম, সঠিক Demo Coin দাম ও কমিশন লিখুন।");return;}
+ const b=$("saveProductBtn");b.disabled=true;
+ try{
+  const id="p_"+Date.now();
+  await setDoc(doc(db,"shopProducts",id),{name,imageUrl:safeProductImage(imageUrl),description,demoCoinPrice,demoCommission,active:true,createdAt:serverTimestamp(),demoOnly:true});
+  $("productName").value="";$("productImage").value="";$("productPrice").value="";$("productCommission").value="";$("productDescription").value="";
+  toast("ডেমো পণ্য যোগ হয়েছে।");await loadShopProducts();await loadAdminProducts();
+ }catch(e){toast(friendlyError(e));}finally{b.disabled=false;}
+}
+async function loadAdminProducts(){
+ if(!currentUser||currentUser.uid!==ADMIN_UID)return;
+ const snap=await getDocs(collection(db,"shopProducts"));
+ const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+ $("adminProducts").innerHTML=rows.length?rows.map(p=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)"><strong>${escapeHtml(p.name)}</strong> — ${bn(p.demoCoinPrice)} Demo Coins · কমিশন ${bn(p.demoCommission||0)}<br><span class="muted">${p.active?"সক্রিয়":"বন্ধ"}</span>
+ <div class="actions"><button class="btn secondary" data-product-toggle="${p.id}" data-active="${p.active?"true":"false"}">${p.active?"পণ্য বন্ধ":"পণ্য চালু"}</button></div></div>`).join(""):"কোনো পণ্য নেই।";
+ $("adminProducts").querySelectorAll("[data-product-toggle]").forEach(b=>b.onclick=async()=>{b.disabled=true;try{await updateDoc(doc(db,"shopProducts",b.dataset.productToggle),{active:b.dataset.active!=="true"});await loadAdminProducts();await loadShopProducts();}catch(e){b.disabled=false;toast(friendlyError(e));}});
+}
+async function loadAdminShopOrders(){
+ if(!currentUser||currentUser.uid!==ADMIN_UID)return;
+ const snap=await getDocs(collection(db,"shopOrders"));
+ const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+ $("adminShopOrders").innerHTML=rows.length?rows.map(o=>`<div style="padding:9px 0;border-bottom:1px solid var(--line)"><strong>${escapeHtml(o.productName)}</strong> — ${bn(o.demoCoinPrice)} Demo Coins<br><span class="muted">UID: ${escapeHtml(o.uid)} · ${o.status}</span>
+ ${o.status==="pending"?`<div class="actions"><button class="btn" data-order-review="approved" data-id="${o.id}">Approve Demo</button><button class="btn secondary" data-order-review="rejected" data-id="${o.id}">Reject</button></div>`:""}
+ </div>`).join(""):"কোনো অর্ডার নেই।";
+ $("adminShopOrders").querySelectorAll("[data-order-review]").forEach(b=>b.onclick=async()=>{b.disabled=true;try{await updateDoc(doc(db,"shopOrders",b.dataset.id),{status:b.dataset.orderReview,reviewedAt:serverTimestamp()});await loadAdminShopOrders();toast("অর্ডারের ডেমো স্ট্যাটাস আপডেট হয়েছে।");}catch(e){b.disabled=false;toast(friendlyError(e));}});
+}
+$("saveProductBtn").onclick=saveDemoProduct;
+
 async function bookFarm(farmId){
  if(!currentUser)return;
  const farm=farmCatalog.find(x=>x.id===farmId);if(!farm)return;
@@ -273,7 +370,7 @@ async function loadAdminUsers(){
 async function loadAdminSubmissions(){
  if(!currentUser || currentUser.uid!==ADMIN_UID)return;
  await loadAdminUsers();
- await loadAdminFarmBookings();await loadAdminWithdrawals();
+ await loadAdminFarmBookings();await loadAdminWithdrawals();await loadAdminProducts();await loadAdminShopOrders();
  const snap=await getDocs(collection(db,"taskSubmissions"));
  const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
  $("adminSubmissions").innerHTML=rows.length?rows.map(x=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><strong>${x.title}</strong><br><span class="muted">ব্যবহারকারী: ${x.uid}</span><br><span class="muted">স্ট্যাটাস: ${x.status==="pending"?"পর্যালোচনাধীন":x.status==="approved"?"অনুমোদিত":"বাতিল"}</span>${x.status==="pending"?`<div class="actions"><button class="btn" data-review="approved" data-id="${x.id}">অনুমোদন</button><button class="btn secondary" data-review="rejected" data-id="${x.id}">বাতিল</button></div>`:""}</div>`).join(""):"এখনো কোনো টাস্ক জমা পড়েনি।";
@@ -302,5 +399,5 @@ document.querySelectorAll(".taskBtn").forEach(b=>b.onclick=async()=>{
   toast(e.code==="permission-denied"?"Firestore Rules আপডেট/Publish হয়েছে কি না দেখুন।":friendlyError(e));
  }
 });
-onAuthStateChanged(auth,async user=>{currentUser=user;if(user){try{await ensureUserProfile(user);$("adminToggle").classList.toggle("hidden",user.uid!==ADMIN_UID);$("adminPanel").classList.add("hidden");$("welcome").textContent="স্বাগতম, "+(user.displayName||user.email||"ব্যবহারকারী");$("authView").classList.add("hidden");$("appView").classList.remove("hidden");await loadSubmissions();renderFarms();await loadFarmBookings();await loadGoatFarmDemo();}catch(e){$("authView").classList.remove("hidden");$("appView").classList.add("hidden");setError("প্রোফাইল সংরক্ষণ হয়নি: "+friendlyError(e));}}else{$("adminToggle").classList.add("hidden");$("adminPanel").classList.add("hidden");$("authView").classList.remove("hidden");$("appView").classList.add("hidden");}});
+onAuthStateChanged(auth,async user=>{currentUser=user;if(user){try{await ensureUserProfile(user);$("adminToggle").classList.toggle("hidden",user.uid!==ADMIN_UID);$("adminPanel").classList.add("hidden");$("welcome").textContent="স্বাগতম, "+(user.displayName||user.email||"ব্যবহারকারী");$("authView").classList.add("hidden");$("appView").classList.remove("hidden");await loadSubmissions();renderFarms();await loadFarmBookings();await loadGoatFarmDemo();await loadShopProducts();await loadMyShopOrders();}catch(e){$("authView").classList.remove("hidden");$("appView").classList.add("hidden");setError("প্রোফাইল সংরক্ষণ হয়নি: "+friendlyError(e));}}else{$("adminToggle").classList.add("hidden");$("adminPanel").classList.add("hidden");$("authView").classList.remove("hidden");$("appView").classList.add("hidden");}});
 </script></body></html>
