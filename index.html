@@ -39,7 +39,7 @@
 <label for="productCommission">কমিশন (Demo Coins — শুধু প্রদর্শনের জন্য)</label><input id="productCommission" type="number" min="0" step="1" placeholder="50">
 <label for="productDescription">বিবরণ</label><input id="productDescription" placeholder="পণ্যের বিবরণ">
 <div class="actions"><button class="btn" id="saveProductBtn">পণ্য যোগ করুন</button></div>
-<p class="notice">ছবি URL ব্যবহার করুন। কমিশন নগদ বা ব্যালেন্স হিসেবে দেওয়া হবে না।</p>
+<p class="notice">ফোনের গ্যালারি থেকে ছোট ছবি যোগ করা যাবে। কমিশন নগদ বা ব্যালেন্স হিসেবে দেওয়া হবে না।</p>
 </div><div id="adminProducts" class="notice">পণ্য লোড হচ্ছে…</div>
 <h3>Shop Orders — অর্ডার</h3><div id="adminShopOrders" class="notice">লোড হচ্ছে…</div>
 <hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Farm বুকিং</h3><div id="adminFarmBookings" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>ডেমো Withdrawal Requests</h3><div id="adminWithdrawals" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>ব্যবহারকারী তালিকা</h3><div id="adminUserCount" class="muted">লোড হচ্ছে…</div><div id="adminUsers" class="notice">লোড হচ্ছে…</div></section>
@@ -86,10 +86,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, sendPasswordResetEmail, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js";
 
 const firebaseConfig={apiKey:"AIzaSyAWt_wIKzS0lzIh1yyJYWTzEXfwhLHTgMs",authDomain:"tasktaka-7b286.firebaseapp.com",projectId:"tasktaka-7b286",storageBucket:"tasktaka-7b286.firebasestorage.app",messagingSenderId:"777114171241",appId:"1:777114171241:web:31651293338d62a399aff8",measurementId:"G-S4Q38GQ14X"};
-const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app),storage=getStorage(app),googleProvider=new GoogleAuthProvider();
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app),googleProvider=new GoogleAuthProvider();
 const ADMIN_UID="K9T43VfmBHVormBGg8kUb5eYM3m1";
 let mode="login",currentUser=null;
 const $=id=>document.getElementById(id);
@@ -192,20 +191,33 @@ async function loadAdminWithdrawals(){
 // Demo Coin Shop: product catalog and non-financial order requests only.
 function safeProductImage(url){
  const s=String(url||"").trim();
- return /^https:\/\//i.test(s)?s:"";
+ return /^https:\/\//i.test(s)||/^data:image\/jpeg;base64,/i.test(s)?s:"";
 }
 $("productImage").addEventListener("change",()=>{
  const file=$("productImage").files?.[0];
  $("productImagePreview").textContent=file?("নির্বাচিত ছবি: "+file.name):"এখনো ছবি নির্বাচন করা হয়নি।";
 });
-async function uploadProductImage(file,productId){
+async function uploadProductImage(file){
  if(!file)return "";
  if(!file.type.startsWith("image/"))throw new Error("শুধু ছবির ফাইল নির্বাচন করুন।");
- if(file.size>5*1024*1024)throw new Error("ছবির সাইজ ৫ MB-এর কম হতে হবে।");
- const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
- const imageRef=storageRef(storage,"shopProducts/"+productId+"/"+safeName);
- await uploadBytes(imageRef,file,{contentType:file.type});
- return await getDownloadURL(imageRef);
+ if(file.size>10*1024*1024)throw new Error("মূল ছবির সাইজ ১০ MB-এর কম হতে হবে।");
+ const image=new Image(),objectUrl=URL.createObjectURL(file);
+ try{
+  await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error("ছবিটি খোলা যাচ্ছে না।"));image.src=objectUrl;});
+  const canvas=document.createElement("canvas");
+  let scale=Math.min(1,1000/Math.max(image.naturalWidth,image.naturalHeight));
+  let blob=null;
+  for(let attempt=0;attempt<8;attempt++){
+   canvas.width=Math.max(1,Math.round(image.naturalWidth*scale));
+   canvas.height=Math.max(1,Math.round(image.naturalHeight*scale));
+   const ctx=canvas.getContext("2d");ctx.drawImage(image,0,0,canvas.width,canvas.height);
+   blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/jpeg",0.72));
+   if(blob&&blob.size<=420*1024)break;
+   scale*=0.78;
+  }
+  if(!blob||blob.size>420*1024)throw new Error("ছবিটি ছোট করা যায়নি। অন্য ছবি চেষ্টা করুন।");
+  return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error("ছবি পড়া যায়নি।"));reader.readAsDataURL(blob);});
+ }finally{URL.revokeObjectURL(objectUrl);}
 }
 function productCard(p){
  const img=safeProductImage(p.imageUrl);
@@ -257,7 +269,7 @@ async function saveDemoProduct(){
  const b=$("saveProductBtn");b.disabled=true;
  try{
   const id="p_"+Date.now();
-  const imageUrl=imageFile?await uploadProductImage(imageFile,id):"";
+  const imageUrl=imageFile?await uploadProductImage(imageFile):"";
   await setDoc(doc(db,"shopProducts",id),{name,imageUrl:safeProductImage(imageUrl),description,demoCoinPrice,demoCommission,active:true,createdAt:serverTimestamp(),demoOnly:true});
   $("productName").value="";$("productImage").value="";$("productImagePreview").textContent="এখনো ছবি নির্বাচন করা হয়নি।";$("productPrice").value="";$("productCommission").value="";$("productDescription").value="";
   toast("ডেমো পণ্য যোগ হয়েছে।");await loadShopProducts();await loadAdminProducts();
