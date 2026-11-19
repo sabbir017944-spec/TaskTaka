@@ -69,6 +69,30 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+
+    // Demo farm bookings: no payments, deposits, or profit balances.
+    match /farmBookings/{bookingId} {
+      allow get, list: if isAdmin()
+        || (request.auth != null && resource.data.uid == request.auth.uid);
+
+      allow create: if request.auth != null
+        && bookingId == request.auth.uid + "_" + request.resource.data.farmId
+        && request.resource.data.keys().hasOnly([
+          'uid','farmId','farmName','category','status','demoOnly','createdAt'
+        ])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.farmId in [
+          'farm_enrichment_60','eggplant_farm_49','cucumber_farm_49','shariah_vegetable_01'
+        ]
+        && request.resource.data.category in ['regular','shariah']
+        && request.resource.data.status == 'pending'
+        && request.resource.data.demoOnly == true
+        && request.resource.data.createdAt == request.time
+        && !exists(/databases/$(database)/documents/farmBookings/$(bookingId));
+
+      allow update, delete: if false;
+    }
+
     // All other collections remain closed by default.
   }
 }
