@@ -31,7 +31,14 @@
 </section>
 <section id="appView" class="hidden">
 <div class="userline"><span id="welcome" class="muted"></span><button class="btn secondary hidden" id="adminToggle">অ্যাডমিন প্যানেল</button><button class="btn secondary" id="logoutBtn">লগআউট</button></div>
-<section id="adminPanel" class="card hidden" style="margin:16px 0"><h2>অ্যাডমিন প্যানেল</h2><p class="muted">সব ব্যবহারকারীর জমা দেওয়া টাস্ক এখানে দেখা যাবে। এটি শুধু দেখার জন্য—এখান থেকে অনুমোদন বা টাকা যোগ করা যাবে না।</p><div class="actions"><button class="btn" id="refreshAdmin">রিফ্রেশ</button></div><div id="adminSubmissions" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>ব্যবহারকারী তালিকা</h3><div id="adminUserCount" class="muted">লোড হচ্ছে…</div><div id="adminUsers" class="notice">লোড হচ্ছে…</div></section>
+<section id="adminPanel" class="card hidden" style="margin:16px 0"><h2>অ্যাডমিন প্যানেল</h2><p class="muted">সব ব্যবহারকারীর জমা দেওয়া টাস্ক এখানে দেখা যাবে। এটি শুধু দেখার জন্য—এখান থেকে অনুমোদন বা টাকা যোগ করা যাবে না।</p><div class="actions"><button class="btn" id="refreshAdmin">রিফ্রেশ</button></div><div id="adminSubmissions" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Farm বুকিং</h3><div id="adminFarmBookings" class="notice">লোড হচ্ছে…</div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>ব্যবহারকারী তালিকা</h3><div id="adminUserCount" class="muted">লোড হচ্ছে…</div><div id="adminUsers" class="notice">লোড হচ্ছে…</div></section>
+<section class="card" style="margin:16px 0">
+ <div class="section"><h2>All Farms</h2><span class="pill">ডেমো প্রকল্প</span></div>
+ <div class="tabs"><button class="btn" id="regularFarms">Regular</button><button class="btn secondary" id="shariahFarms">Shariah</button></div>
+ <div id="farmList" class="tasks"></div>
+ <p class="notice">শুধু নমুনা বুকিং। এখানে কোনো টাকা জমা, বিনিয়োগ, লাভ বা পেমেন্ট হয় না। প্রকল্পের নাম ও পরিমাণগুলো ডেমো ডেটা।</p>
+ <h3>My Farms</h3><div id="myFarms" class="notice">লোড হচ্ছে…</div>
+</section>
 <section class="hero"><div class="eyebrow">ছোট কাজ • পরিষ্কার হিসাব</div><h1>কাজ সম্পন্ন করুন, অগ্রগতি দেখুন</h1><p>TaskTaka-এর নমুনা ড্যাশবোর্ড। এখানে দেখানো টাস্ক, পয়েন্ট ও উত্তোলনের অনুরোধ পরীক্ষামূলক—কোনো বাস্তব টাকা বা পেমেন্ট নেই।</p></section>
 <section class="grid">
 <div class="card stat"><small>পর্যালোচনাধীন টাস্ক</small><div class="amount" id="pendingCount">০</div><small>অ্যাডমিন যাচাই করবে</small></div>
@@ -87,6 +94,56 @@ const taskDefinitions={
  feedback:{title:"ফিডব্যাক ফর্ম দেখুন",points:100},
  quiz:{title:"নমুনা কুইজ",points:125}
 };
+
+const farmCatalog=[
+ {id:"farm_enrichment_60",name:"Agriculture Enrichment Farm 60",category:"regular",amount:"ডেমো শেয়ার",duration:"৪ মাস",description:"কৃষি উন্নয়ন প্রকল্পের নমুনা বিবরণ",image:"🌱"},
+ {id:"eggplant_farm_49",name:"Eggplant Farm 49",category:"regular",amount:"ডেমো শেয়ার",duration:"৫ মাস",description:"বেগুন চাষ প্রকল্পের নমুনা বিবরণ",image:"🍆"},
+ {id:"cucumber_farm_49",name:"Cucumber Farm 49",category:"regular",amount:"ডেমো শেয়ার",duration:"৬ মাস",description:"শসা চাষ প্রকল্পের নমুনা বিবরণ",image:"🥒"},
+ {id:"shariah_vegetable_01",name:"Shariah Vegetable Farm 01",category:"shariah",amount:"ডেমো শেয়ার",duration:"৪ মাস",description:"শরিয়াহ ক্যাটাগরির নমুনা প্রকল্প",image:"🥬"}
+];
+let farmCategory="regular";
+function renderFarms(){
+ const rows=farmCatalog.filter(f=>f.category===farmCategory);
+ $("farmList").innerHTML=rows.map(f=>`<article class="card">
+  <div style="font-size:42px;margin-bottom:8px">${f.image}</div><strong>${escapeHtml(f.name)}</strong>
+  <p class="muted">${escapeHtml(f.description)}</p>
+  <div class="userline"><span class="pill">${f.category==="regular"?"Regular":"Shariah"}</span><span class="muted">${f.duration}</span></div>
+  <p class="muted">${f.amount}</p>
+  <button class="btn farmBook" data-farm="${f.id}">Book Demo</button>
+ </article>`).join("");
+ document.querySelectorAll(".farmBook").forEach(b=>b.onclick=()=>bookFarm(b.dataset.farm));
+}
+$("regularFarms").onclick=()=>{farmCategory="regular";$("regularFarms").className="btn";$("shariahFarms").className="btn secondary";renderFarms();};
+$("shariahFarms").onclick=()=>{farmCategory="shariah";$("shariahFarms").className="btn";$("regularFarms").className="btn secondary";renderFarms();};
+async function bookFarm(farmId){
+ if(!currentUser)return;
+ const farm=farmCatalog.find(x=>x.id===farmId);if(!farm)return;
+ const bookingId=currentUser.uid+"_"+farm.id;
+ try{
+  await setDoc(doc(db,"farmBookings",bookingId),{
+   uid:currentUser.uid,farmId:farm.id,farmName:farm.name,category:farm.category,
+   status:"pending",demoOnly:true,createdAt:serverTimestamp()
+  });
+  await loadFarmBookings();
+  toast("ডেমো বুকিং জমা হয়েছে। কোনো টাকা নেওয়া হয়নি।");
+ }catch(e){toast(e.code==="permission-denied"?"Firestore Rules আপডেট ও Publish করতে হবে।":friendlyError(e));}
+}
+async function loadFarmBookings(){
+ if(!currentUser)return;
+ const q=query(collection(db,"farmBookings"),where("uid","==",currentUser.uid));
+ const snap=await getDocs(q);
+ $("myFarms").innerHTML=snap.empty?"এখনো কোনো ডেমো বুকিং নেই।":snap.docs.map(d=>{
+  const x=d.data();return `<div style="padding:8px 0;border-bottom:1px solid var(--line)"><strong>${escapeHtml(x.farmName)}</strong><br><span class="muted">অবস্থা: ${x.status==="pending"?"পর্যালোচনাধীন":x.status==="approved"?"অনুমোদিত":"বাতিল"} · ডেমো বুকিং</span></div>`;
+ }).join("");
+}
+async function loadAdminFarmBookings(){
+ if(!currentUser||currentUser.uid!==ADMIN_UID)return;
+ const snap=await getDocs(collection(db,"farmBookings"));
+ $("adminFarmBookings").innerHTML=snap.empty?"এখনো কোনো বুকিং নেই।":snap.docs.map(d=>{
+  const x=d.data();return `<div style="padding:9px 0;border-bottom:1px solid var(--line)"><strong>${escapeHtml(x.farmName)}</strong><br><span class="muted">UID: ${escapeHtml(x.uid)} · ${x.status}</span></div>`;
+ }).join("");
+}
+
 let mySubmissions=[];
 function bn(n){return new Intl.NumberFormat("bn-BD").format(n);}
 function renderSubmissions(){
@@ -161,6 +218,7 @@ async function loadAdminUsers(){
 async function loadAdminSubmissions(){
  if(!currentUser || currentUser.uid!==ADMIN_UID)return;
  await loadAdminUsers();
+ await loadAdminFarmBookings();
  const snap=await getDocs(collection(db,"taskSubmissions"));
  const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
  $("adminSubmissions").innerHTML=rows.length?rows.map(x=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><strong>${x.title}</strong><br><span class="muted">ব্যবহারকারী: ${x.uid}</span><br><span class="muted">স্ট্যাটাস: ${x.status==="pending"?"পর্যালোচনাধীন":x.status==="approved"?"অনুমোদিত":"বাতিল"}</span>${x.status==="pending"?`<div class="actions"><button class="btn" data-review="approved" data-id="${x.id}">অনুমোদন</button><button class="btn secondary" data-review="rejected" data-id="${x.id}">বাতিল</button></div>`:""}</div>`).join(""):"এখনো কোনো টাস্ক জমা পড়েনি।";
@@ -189,5 +247,5 @@ document.querySelectorAll(".taskBtn").forEach(b=>b.onclick=async()=>{
   toast(e.code==="permission-denied"?"Firestore Rules আপডেট/Publish হয়েছে কি না দেখুন।":friendlyError(e));
  }
 });
-onAuthStateChanged(auth,async user=>{currentUser=user;if(user){try{await ensureUserProfile(user);$("adminToggle").classList.toggle("hidden",user.uid!==ADMIN_UID);$("adminPanel").classList.add("hidden");$("welcome").textContent="স্বাগতম, "+(user.displayName||user.email||"ব্যবহারকারী");$("authView").classList.add("hidden");$("appView").classList.remove("hidden");await loadSubmissions();}catch(e){$("authView").classList.remove("hidden");$("appView").classList.add("hidden");setError("প্রোফাইল সংরক্ষণ হয়নি: "+friendlyError(e));}}else{$("adminToggle").classList.add("hidden");$("adminPanel").classList.add("hidden");$("authView").classList.remove("hidden");$("appView").classList.add("hidden");}});
+onAuthStateChanged(auth,async user=>{currentUser=user;if(user){try{await ensureUserProfile(user);$("adminToggle").classList.toggle("hidden",user.uid!==ADMIN_UID);$("adminPanel").classList.add("hidden");$("welcome").textContent="স্বাগতম, "+(user.displayName||user.email||"ব্যবহারকারী");$("authView").classList.add("hidden");$("appView").classList.remove("hidden");await loadSubmissions();renderFarms();await loadFarmBookings();}catch(e){$("authView").classList.remove("hidden");$("appView").classList.add("hidden");setError("প্রোফাইল সংরক্ষণ হয়নি: "+friendlyError(e));}}else{$("adminToggle").classList.add("hidden");$("adminPanel").classList.add("hidden");$("authView").classList.remove("hidden");$("appView").classList.add("hidden");}});
 </script></body></html>
